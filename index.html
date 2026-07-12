@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weaver Tote Co. — Moving Made Easy</title>
+<style>
+  :root{
+    --black:#17171a;
+    --red:#c0282d;
+    --red-deep:#8f1d21;
+    --paper:#f4f2ee;
+    --gray:#6b6b6e;
+    --line:#e2dfd8;
+    --radius:2px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+    background:var(--paper);
+    color:var(--black);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+
+  .display{
+    font-family:'Arial Black',Impact,sans-serif;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+  }
+
+  /* ---------- stacked-tote divider (signature element) ---------- */
+  .tote-rule{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:14px 0;
+  }
+  .tote-rule span{
+    width:34px;height:10px;
+    background:var(--black);
+    border-radius:2px;
+    position:relative;
+  }
+  .tote-rule span::after{
+    content:"";
+    position:absolute;
+    top:-4px;left:-2px;right:-2px;
+    height:5px;
+    background:var(--red);
+    border-radius:2px;
+  }
+  .tote-rule.light span{background:rgba(255,255,255,.85);}
+  .tote-rule.light span::after{background:var(--red);}
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:var(--paper);
+    border-bottom:3px solid var(--black);
+  }
+  .nav-wrap{
+    max-width:1180px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;
+  }
+  .nav-logo{display:flex;align-items:center;gap:10px;}
+  .nav-logo img{height:38px;width:auto;border-radius:2px;}
+  .nav-logo-text{font-family:'Arial Black',Impact,sans-serif;font-weight:900;font-size:1.05rem;letter-spacing:.02em;}
+  .nav-logo-text span{display:block;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-weight:500;font-size:.6rem;letter-spacing:.18em;color:var(--gray);text-transform:uppercase;}
+  nav ul{list-style:none;display:flex;gap:28px;}
+  nav a{font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;}
+  nav a:hover{color:var(--red);}
+  .nav-cta{
+    background:var(--black);color:#fff;
+    padding:10px 20px;font-weight:700;font-size:.8rem;
+    text-transform:uppercase;letter-spacing:.04em;
+    border-radius:var(--radius);
+  }
+  .nav-cta:hover{background:var(--red);}
+  .nav-mobile-toggle{display:none;background:none;border:none;font-size:1.6rem;cursor:pointer;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--black);
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+    padding:80px 24px 0;
+  }
+  .hero-inner{
+    max-width:1180px;margin:0 auto;
+    display:grid;grid-template-columns:1.1fr .9fr;gap:40px;
+    align-items:center;
+  }
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--red);color:#fff;
+    padding:6px 14px;font-size:.72rem;font-weight:700;
+    text-transform:uppercase;letter-spacing:.1em;
+    border-radius:20px;margin-bottom:22px;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem,5.5vw,4.3rem);
+    line-height:.96;
+    margin-bottom:22px;
+  }
+  .hero h1 .accent{color:var(--red);}
+  .hero p.lead{
+    font-size:1.1rem;color:#cfcfd2;max-width:480px;margin-bottom:32px;line-height:1.55;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px;}
+  .btn{
+    display:inline-block;padding:15px 28px;
+    font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;
+    border-radius:var(--radius);
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn-primary{background:var(--red);color:#fff;}
+  .btn-primary:hover{background:var(--red-deep);transform:translateY(-2px);}
+  .btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.35);}
+  .btn-ghost:hover{border-color:#fff;transform:translateY(-2px);}
+
+  .hero-tags{display:flex;gap:18px;flex-wrap:wrap;}
+  .hero-tag{display:flex;align-items:center;gap:8px;font-size:.82rem;color:#b9b9bc;}
+  .hero-tag::before{content:"";width:7px;height:7px;background:var(--red);border-radius:50%;flex-shrink:0;}
+
+  .hero-art{
+    display:flex;justify-content:center;align-items:center;
+    height:100%;
+    position:relative;
+  }
+  .hero-art-card{
+    background:#fff;
+    border-radius:var(--radius);
+    padding:32px;
+    width:100%;max-width:420px;
+    box-shadow:0 30px 60px rgba(0,0,0,.5);
+    border:3px solid var(--red);
+  }
+  .hero-art-card img{width:100%;}
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    background:var(--red);color:#fff;
+    overflow:hidden;white-space:nowrap;
+    border-top:3px solid var(--black);border-bottom:3px solid var(--black);
+  }
+  .marquee-track{
+    display:inline-flex;gap:48px;
+    animation:scroll 26s linear infinite;
+    padding:13px 0;
+  }
+  .marquee-track span{
+    font-family:'Arial Black',Impact,sans-serif;font-weight:900;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:48px;
+  }
+  .marquee-track span::after{content:"●";font-size:.6rem;opacity:.7;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){.marquee-track{animation:none;}}
+
+  /* ---------- section shells ---------- */
+  section{padding:90px 24px;}
+  .section-inner{max-width:1180px;margin:0 auto;}
+  .section-head{max-width:640px;margin-bottom:50px;}
+  .eyebrow{
+    font-size:.75rem;font-weight:700;color:var(--red);
+    text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px;display:block;
+  }
+  h2{font-family:'Arial Black',Impact,sans-serif;font-weight:900;font-size:clamp(2rem,4vw,2.8rem);line-height:1.02;text-transform:uppercase;}
+  .section-head p{color:var(--gray);font-size:1.05rem;margin-top:14px;line-height:1.6;}
+
+  /* ---------- how it works ---------- */
+  .steps{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    border:3px solid var(--black);border-radius:var(--radius);overflow:hidden;
+  }
+  .step{
+    background:var(--paper);padding:32px 24px;border-right:3px solid var(--black);
+    position:relative;
+  }
+  .step:last-child{border-right:none;}
+  .step-num{font-family:'Arial Black',Impact,sans-serif;font-weight:900;font-size:2.4rem;color:var(--red);line-height:1;margin-bottom:14px;}
+  .step h3{font-size:1rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px;font-weight:800;}
+  .step p{font-size:.88rem;color:var(--gray);line-height:1.5;}
+
+  /* ---------- pricing ---------- */
+  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .price-card{
+    background:#fff;border:3px solid var(--black);border-radius:var(--radius);
+    padding:34px 28px;position:relative;
+    display:flex;flex-direction:column;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .price-card:hover{transform:translateY(-6px);box-shadow:8px 8px 0 var(--black);}
+  .price-card.featured{background:var(--black);color:#fff;}
+  .price-card.featured .price-card-label,
+  .price-card.featured .price-tote-count,
+  .price-card.featured .price-sub{color:#fff;}
+  .price-card.featured .price-line{border-color:rgba(255,255,255,.18);}
+  .price-card.featured .price-includes{color:#d9d9da;}
+  .featured-flag{
+    position:absolute;top:-15px;left:28px;
+    background:var(--red);color:#fff;font-size:.68rem;font-weight:800;
+    padding:5px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.06em;
+  }
+  .price-card-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);font-weight:700;margin-bottom:6px;}
+  .price-tote-count{font-family:'Arial Black',Impact,sans-serif;font-weight:900;font-size:3.4rem;line-height:1;margin-bottom:2px;}
+  .price-tote-count small{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:.95rem;font-weight:700;text-transform:uppercase;margin-left:6px;letter-spacing:.04em;}
+  .price-line{border-top:2px dashed var(--line);margin:18px 0;padding-top:18px;}
+  .price-amount{font-family:'Arial Black',Impact,sans-serif;font-weight:900;font-size:2.6rem;color:var(--red);}
+  .price-amount span{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:.85rem;color:var(--gray);font-weight:600;}
+  .price-card.featured .price-amount span{color:#d9d9da;}
+  .price-includes{font-size:.88rem;color:var(--gray);margin-top:10px;line-height:1.5;flex-grow:1;}
+  .price-cta{
+    margin-top:22px;text-align:center;background:var(--black);color:#fff;
+    padding:13px;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;
+    border-radius:var(--radius);
+  }
+  .price-card.featured .price-cta{background:var(--red);}
+  .price-cta:hover{background:var(--red);}
+
+  .pricing-extra{
+    margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  }
+  .extra-card{
+    border:2px solid var(--black);border-radius:var(--radius);padding:22px 26px;
+    display:flex;justify-content:space-between;align-items:center;background:#fff;
+  }
+  .extra-card h4{font-size:.95rem;text-transform:uppercase;letter-spacing:.02em;margin-bottom:4px;}
+  .extra-card p{font-size:.85rem;color:var(--gray);}
+  .extra-card .amt{font-family:'Arial Black',Impact,sans-serif;font-weight:900;font-size:1.7rem;color:var(--red);white-space:nowrap;margin-left:16px;}
+
+  /* ---------- catalog ---------- */
+  .catalog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:3px solid var(--black);}
+  .catalog-item{
+    border-right:3px solid var(--black);border-bottom:3px solid var(--black);
+    background:#fff;padding:30px 26px;
+  }
+  .catalog-grid .catalog-item:nth-child(3n){border-right:none;}
+  .catalog-grid .catalog-item:nth-last-child(-n+3){border-bottom:none;}
+  .catalog-icon{
+    width:52px;height:52px;background:var(--black);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+    color:var(--red);font-size:1.4rem;font-weight:800;
+  }
+  .catalog-item h3{font-size:1.1rem;text-transform:uppercase;margin-bottom:8px;letter-spacing:.02em;}
+  .catalog-item p{font-size:.88rem;color:var(--gray);line-height:1.55;}
+
+  /* ---------- about ---------- */
+  .about{background:var(--black);color:#fff;}
+  .about-inner{
+    max-width:1180px;margin:0 auto;
+    display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+  }
+  .about h2{color:#fff;}
+  .about .eyebrow{color:#ff8a8d;}
+  .about p{color:#cfcfd2;font-size:1.02rem;line-height:1.7;margin-top:18px;}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:34px;}
+  .about-stat{border-left:3px solid var(--red);padding-left:16px;}
+  .about-stat .num{font-family:'Arial Black',Impact,sans-serif;font-weight:900;font-size:2.1rem;}
+  .about-stat .lbl{font-size:.78rem;color:#a8a8ac;text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+  .about-art{
+    border:3px solid var(--red);border-radius:var(--radius);
+    padding:40px;display:flex;align-items:center;justify-content:center;
+    background:#fff;
+  }
+  .about-art img{max-width:280px;}
+
+  /* ---------- booking ---------- */
+  .booking{background:#fff;}
+  .booking-wrap{
+    display:grid;grid-template-columns:.85fr 1.15fr;gap:0;
+    border:3px solid var(--black);border-radius:var(--radius);overflow:hidden;
+  }
+  .booking-side{
+    background:var(--red);color:#fff;padding:46px 38px;
+  }
+  .booking-side h3{font-family:'Arial Black',Impact,sans-serif;font-weight:900;font-size:1.6rem;margin-bottom:16px;text-transform:uppercase;}
+  .booking-side p{font-size:.92rem;line-height:1.6;color:#ffd9da;margin-bottom:28px;}
+  .booking-contact{display:flex;flex-direction:column;gap:16px;}
+  .booking-contact-item{font-size:.9rem;}
+  .booking-contact-item .lbl{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#ffb3b5;margin-bottom:3px;}
+  .booking-form{padding:46px 38px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .form-field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+  .form-field label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--black);}
+  .form-field input,.form-field select,.form-field textarea{
+    border:2px solid var(--line);border-radius:var(--radius);padding:12px 14px;
+    font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:.92rem;background:var(--paper);
+    transition:border-color .15s ease;
+  }
+  .form-field input:focus,.form-field select:focus,.form-field textarea:focus{
+    outline:none;border-color:var(--black);
+  }
+  .form-field textarea{resize:vertical;min-height:90px;}
+  .form-submit{
+    width:100%;background:var(--black);color:#fff;border:none;
+    padding:16px;font-weight:700;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;
+    border-radius:var(--radius);cursor:pointer;margin-top:6px;
+  }
+  .form-submit:hover{background:var(--red);}
+  .form-note{font-size:.78rem;color:var(--gray);margin-top:12px;text-align:center;}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--black);color:#a8a8ac;padding:50px 24px 26px;}
+  .footer-inner{max-width:1180px;margin:0 auto;}
+  .footer-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;margin-bottom:30px;}
+  .footer-logo{display:flex;align-items:center;gap:10px;}
+  .footer-logo-chip{
+    background:#fff;border-radius:4px;padding:6px 14px;
+    display:flex;align-items:center;
+  }
+  .footer-logo-chip img{height:30px;width:auto;}
+  .footer-logo-name{font-weight:800;font-size:1rem;color:#fff;letter-spacing:.02em;}
+  .footer-links{display:flex;gap:26px;flex-wrap:wrap;}
+  .footer-links a{font-size:.85rem;font-weight:600;}
+  .footer-links a:hover{color:#fff;}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,.12);padding-top:22px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-size:.8rem;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:920px){
+    nav ul{display:none;}
+    .nav-mobile-toggle{display:block;}
+    .nav-cta{display:none;}
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-art{order:-1;}
+    .hero-art img{max-width:240px;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .step{border-bottom:3px solid var(--black);}
+    .pricing-grid{grid-template-columns:1fr;}
+    .pricing-extra{grid-template-columns:1fr;}
+    .catalog-grid{grid-template-columns:1fr;}
+    .catalog-grid .catalog-item{border-right:none;}
+    .about-inner{grid-template-columns:1fr;}
+    .about-art{order:-1;}
+    .booking-wrap{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+  }
+  @media (max-width:540px){
+    .steps{grid-template-columns:1fr;}
+    .step{border-right:none;}
+    .hero{padding-top:50px;}
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+    outline:3px solid var(--red);outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="nav-logo">
+      <img src="logo.jpeg" alt="Weaver Tote Co. logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#catalog">What's Included</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+    <a href="#book" class="nav-cta">Book Now</a>
+    <button class="nav-mobile-toggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-eyebrow">Serving Middle Georgia &amp; Surrounding Counties</span>
+      <h1>Move <span class="accent">smarter.</span><br>Pack faster.<br>Stress less.</h1>
+      <p class="lead">Skip the cardboard. Rent stackable, reusable moving totes — delivered ready to pack, picked up when you're done. Rolling dollies included with every package.</p>
+      <div class="hero-actions">
+        <a href="#book" class="btn btn-primary">Reserve Your Totes</a>
+        <a href="#pricing" class="btn btn-ghost">See Pricing</a>
+      </div>
+      <div class="hero-tags">
+        <span class="hero-tag">No tape required</span>
+        <span class="hero-tag">Eco-friendly &amp; reusable</span>
+        <span class="hero-tag">Rolling dollies included</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="hero-art-card">
+        <img src="logo.jpeg" alt="Weaver Tote Co. — stack of moving totes with red lids">
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee" style="margin-top:60px;">
+    <div class="marquee-track">
+      <span>Family Owned <span>Locally Serving Our Community</span> No Cardboard Cleanup <span>Stackable &amp; Durable</span> Less Risk Of Bugs</span>
+      <span>Family Owned <span>Locally Serving Our Community</span> No Cardboard Cleanup <span>Stackable &amp; Durable</span> Less Risk Of Bugs</span>
+    </div>
+  </div>
+</section>
+
+<div style="background:#fff;border-bottom:3px solid var(--black);padding:18px 24px;">
+  <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px;">
+    <span style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--red);">Service Area</span>
+    <span style="font-size:.88rem;color:var(--black);">📍 <strong>Free delivery:</strong> Lamar, Pike, Spalding, Butts, Upson &amp; Monroe Counties</span>
+    <span style="font-size:.88rem;color:var(--gray);">✦ <strong>Small travel fee:</strong> All of Middle Georgia — just ask!</span>
+  </div>
+</div>
+
+<section id="how">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="eyebrow">The Process</span>
+      <h2>Four steps to<br>moving day</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Pick a Package</h3>
+        <p>Choose totes based on your home size — studio to 4+ bedrooms.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>We Deliver</h3>
+        <p>Totes and rolling dollies dropped off at your door, ready to pack.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Pack &amp; Move</h3>
+        <p>Stack, roll, and load — no tape, no boxes collapsing on you.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>We Pick Up</h3>
+        <p>Unpack at your new place and we'll grab everything within your rental window.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tote-rule"><span></span><span></span><span></span><span></span><span></span></div>
+
+<section id="pricing" style="background:#fff;">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="eyebrow">2-Week Rental Packages</span>
+      <h2>Pricing built<br>around your move</h2>
+      <p>Every package includes rolling tote dollies. Need an extension? Flexible rental extensions are available.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-card-label">Studio / 1 Bedroom</div>
+        <div class="price-tote-count">20<small>totes</small></div>
+        <div class="price-line">
+          <div class="price-amount">$99<span>/ 2 weeks</span></div>
+        </div>
+        <p class="price-includes">Includes 1 rolling tote dolly. Perfect for apartments, dorms, and small moves.</p>
+        <a href="#book" class="price-cta">Reserve This Package</a>
+      </div>
+
+      <div class="price-card featured">
+        <span class="featured-flag">Most Popular</span>
+        <div class="price-card-label">2–3 Bedroom Home</div>
+        <div class="price-tote-count">40<small>totes</small></div>
+        <div class="price-line">
+          <div class="price-amount">$169<span>/ 2 weeks</span></div>
+        </div>
+        <p class="price-includes">Includes 2 rolling tote dollies. Ideal for most family moves.</p>
+        <a href="#book" class="price-cta">Reserve This Package</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-card-label">4+ Bedroom Home</div>
+        <div class="price-tote-count">60<small>totes</small></div>
+        <div class="price-line">
+          <div class="price-amount">$219<span>/ 2 weeks</span></div>
+        </div>
+        <p class="price-includes">Includes 3 rolling tote dollies. Designed for larger households and bigger moves.</p>
+        <a href="#book" class="price-cta">Reserve This Package</a>
+      </div>
+    </div>
+
+    <div class="pricing-extra">
+      <div class="extra-card">
+        <div>
+          <h4>Need Fewer or Extra Totes?</h4>
+          <p>Mix and match outside the standard packages.</p>
+        </div>
+        <div class="amt">$7<span style="font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:.8rem;color:var(--gray);"> /tote</span></div>
+      </div>
+      <div class="extra-card">
+        <div>
+          <h4>Need More Time?</h4>
+          <p>Flexible rental extensions available — just ask.</p>
+        </div>
+        <div class="amt" style="font-size:1rem;color:var(--black);">Ask Us</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="catalog" style="background:var(--paper);">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="eyebrow">Built For The Job</span>
+      <h2>What's in<br>every package</h2>
+    </div>
+    <div class="catalog-grid">
+      <div class="catalog-item">
+        <div class="catalog-icon">✕</div>
+        <h3>No Tape Required</h3>
+        <p>Snap-lid totes save you time and your sanity — no rolls of tape, no scissors hunting.</p>
+      </div>
+      <div class="catalog-item">
+        <div class="catalog-icon">▦</div>
+        <h3>Stackable &amp; Durable</h3>
+        <p>Built tough to protect your items and stack securely in a truck, garage, or storage unit.</p>
+      </div>
+      <div class="catalog-item">
+        <div class="catalog-icon">✕</div>
+        <h3>No Cardboard Cleanup</h3>
+        <p>No mess, no hassle, no flattened boxes piling up in your new place.</p>
+      </div>
+      <div class="catalog-item">
+        <div class="catalog-icon">♻</div>
+        <h3>Cleaner &amp; Eco-Friendly</h3>
+        <p>Reusable totes mean less landfill waste compared to single-use moving boxes.</p>
+      </div>
+      <div class="catalog-item">
+        <div class="catalog-icon">✕</div>
+        <h3>Less Risk of Bugs</h3>
+        <p>Sealed plastic totes keep your belongings clean and protected — no cardboard, no pests.</p>
+      </div>
+      <div class="catalog-item">
+        <div class="catalog-icon">●</div>
+        <h3>Rolling Dollies Included</h3>
+        <p>Easy-roll dollies make moving stacks of totes quick and effortless — included with every package.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div>
+      <span class="eyebrow">Family Owned</span>
+      <h2>Locally serving<br>our community</h2>
+      <p>Weaver Tote Co. started with a simple idea: moving shouldn't mean wrestling cardboard boxes that fall apart halfway up the stairs. We bring sturdy, reusable totes straight to your door — and pick them up when you're settled in.</p>
+      <p>Perfect for moving, teachers, college students, weddings &amp; events, and home organization. We're proud to serve our neighbors across Lamar, Pike, Spalding, Butts, Upson, Monroe, and all surrounding counties — plus the rest of middle Georgia for a small travel fee.</p>
+      <div class="about-stats">
+        <div class="about-stat">
+          <div class="num">6+</div>
+          <div class="lbl">Counties Served</div>
+        </div>
+        <div class="about-stat">
+          <div class="num">2-Wk</div>
+          <div class="lbl">Standard Rental</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-art">
+      <img src="logo.jpeg" alt="Weaver Tote Co. stacked totes">
+    </div>
+  </div>
+</section>
+
+<div class="tote-rule light" style="background:var(--black);"><span></span><span></span><span></span><span></span><span></span></div>
+
+<section class="booking" id="book">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="eyebrow">Get Started</span>
+      <h2>Reserve your totes</h2>
+      <p>Tell us about your move and we'll confirm your package, delivery date, and pickup window.</p>
+    </div>
+
+    <div class="booking-wrap">
+      <div class="booking-side">
+        <h3>Questions First?</h3>
+        <p>Call, text, or email us directly — we're happy to help you pick the right package for your move.</p>
+        <div class="booking-contact">
+          <div class="booking-contact-item">
+            <span class="lbl">Phone</span>
+            770-584-8065
+          </div>
+          <div class="booking-contact-item">
+            <span class="lbl">Email</span>
+            weavertoteco@gmail.com
+          </div>
+          <div class="booking-contact-item">
+            <span class="lbl">Service Area</span>
+            Lamar, Pike, Spalding, Butts, Upson &amp; Monroe Counties — plus all of Middle Georgia (small travel fee may apply)
+          </div>
+        </div>
+      </div>
+
+      <form class="booking-form" id="bookingForm">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" required>
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" required>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="package">Package</label>
+            <select id="package" required>
+              <option value="">Select a package</option>
+              <option value="20 Totes — Studio/1BR ($99)">20 Totes — Studio/1BR ($99)</option>
+              <option value="40 Totes — 2-3BR ($169)">40 Totes — 2-3BR ($169)</option>
+              <option value="60 Totes — 4+BR ($219)">60 Totes — 4+BR ($219)</option>
+              <option value="Custom / Not Sure Yet">Custom / Not Sure Yet</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="date">Delivery Date</label>
+            <input type="date" id="date" required>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="address">Delivery Address</label>
+          <input type="text" id="address" placeholder="Street, City, County" required>
+        </div>
+        <div class="form-field">
+          <label for="notes">Notes (optional)</label>
+          <textarea id="notes" placeholder="Anything else we should know about your move?"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Booking Request</button>
+        <p class="form-note">This opens your email app with a pre-filled message to weavertoteco@gmail.com</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-logo">
+        <div class="footer-logo-chip">
+          <img src="logo.jpeg" alt="Weaver Tote Co.">
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#how">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#catalog">What's Included</a>
+        <a href="#about">About</a>
+        <a href="#book">Book Now</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Weaver Tote Co. Family owned. Locally serving our community.</span>
+      <span>770-584-8065 · weavertoteco@gmail.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('bookingForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+    const pkg = document.getElementById('package').value;
+    const date = document.getElementById('date').value;
+    const address = document.getElementById('address').value;
+    const notes = document.getElementById('notes').value;
+
+    const subject = encodeURIComponent('Tote Rental Booking Request — ' + name);
+    const body = encodeURIComponent(
+      'New booking request from the website:\n\n' +
+      'Name: ' + name + '\n' +
+      'Phone: ' + phone + '\n' +
+      'Email: ' + email + '\n' +
+      'Package: ' + pkg + '\n' +
+      'Requested Delivery Date: ' + date + '\n' +
+      'Delivery Address: ' + address + '\n' +
+      'Notes: ' + (notes || 'None')
+    );
+
+    window.location.href = 'mailto:weavertoteco@gmail.com?subject=' + subject + '&body=' + body;
+  });
+</script>
+
+</body>
+</html>
