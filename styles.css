@@ -156,3 +156,224 @@ section{padding:70px 0}.home-hero{min-height:680px;align-items:end;background:li
  .mobile-actions a:nth-child(2){background:var(--black);color:#fff}
  .mobile-actions a:nth-child(3){background:var(--red);color:#fff}
 }
+
+
+/* Family photo and Emmarie photo updates */
+.family-story-photo {
+  border-radius: 24px;
+  overflow: hidden;
+  min-height: 620px;
+  box-shadow: var(--shadow);
+  background: var(--black);
+}
+
+.family-story-photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 620px;
+  object-fit: cover;
+  object-position: center 42%;
+  display: block;
+}
+
+.family-in-action {
+  background: var(--off);
+}
+
+.action-photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.action-photo-grid figure {
+  margin: 0;
+  min-height: 560px;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: #111;
+}
+
+.action-photo-grid img {
+  width: 100%;
+  height: 100%;
+  min-height: 560px;
+  object-fit: cover;
+  display: block;
+}
+
+.action-photo-grid figure:first-child img {
+  object-position: center 48%;
+}
+
+.action-photo-grid figure:last-child img {
+  object-position: center 45%;
+}
+
+@media (max-width: 760px) {
+  .family-story-photo,
+  .family-story-photo img {
+    min-height: 480px;
+  }
+
+  .action-photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-photo-grid figure,
+  .action-photo-grid img {
+    min-height: 430px;
+  }
+}
+
+
+/* V3 family gallery and product photography */
+.family-gallery-section {
+  background: var(--off);
+}
+
+.family-gallery {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  grid-auto-rows: 285px;
+  gap: 18px;
+}
+
+.family-gallery figure {
+  position: relative;
+  margin: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #111;
+  box-shadow: var(--shadow);
+}
+
+.family-gallery .gallery-feature {
+  grid-row: span 2;
+}
+
+.family-gallery figure:last-child {
+  grid-column: span 2;
+}
+
+.family-gallery img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.family-gallery .gallery-feature img {
+  object-position: center 42%;
+}
+
+.family-gallery figure:nth-child(2) img {
+  object-position: center 45%;
+}
+
+.family-gallery figure:nth-child(3) img {
+  object-position: center 42%;
+}
+
+.family-gallery figure:nth-child(4) img {
+  object-position: center 38%;
+}
+
+.family-gallery figure:nth-child(5) img {
+  object-position: center;
+}
+
+.family-gallery figcaption {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 9px 13px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.72);
+  color: #fff;
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.product-photo-section {
+  background: #fff;
+}
+
+.product-photo-layout {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.product-photo-layout h2 {
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  line-height: .98;
+  margin-bottom: 18px;
+}
+
+.product-photo-layout p {
+  color: var(--gray);
+  margin-bottom: 24px;
+}
+
+.product-photo {
+  min-height: 480px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: var(--off);
+}
+
+.product-photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .family-gallery {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 270px;
+  }
+
+  .family-gallery .gallery-feature {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .family-gallery figure:last-child {
+    grid-column: span 2;
+  }
+
+  .product-photo-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .family-gallery {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 360px;
+  }
+
+  .family-gallery .gallery-feature,
+  .family-gallery figure:last-child {
+    grid-column: span 1;
+  }
+
+  .family-gallery figure:nth-child(5) {
+    min-height: 250px;
+  }
+
+  .product-photo,
+  .product-photo img {
+    min-height: 330px;
+  }
+}
